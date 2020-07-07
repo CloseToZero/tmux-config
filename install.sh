@@ -1,11 +1,18 @@
 #!/bin/sh -
 
 SCRIPT_DIR=$(cd $(dirname "$0"); pwd)
-CONFIG_FILE="$HOME/.tmux.conf"
+CONFIG_FILE="$SCRIPT_DIR/init.conf"
+CONFIG_WRAP_FILE="$SCRIPT_DIR/init-wrapper.conf"
+CONFIG_INSTALL_FILE="$HOME/.tmux.conf"
 CONFIG_BACKUP_FILE="$HOME/.tmux.conf.back"
 
-if [ -f "$CONFIG_FILE" ]; then
-  cp "$CONFIG_FILE" "$CONFIG_BACKUP_FILE"
+cat <<EOF > "$CONFIG_WRAP_FILE"
+TMUX_CONFIG_DIR="$SCRIPT_DIR"
+source-file "$CONFIG_FILE"
+EOF
+
+if [ -f "$CONFIG_INSTALL_FILE" ]; then
+  cp "$CONFIG_INSTALL_FILE" "$CONFIG_BACKUP_FILE"
 fi
 
-ln -sf "$SCRIPT_DIR/init.conf" "$CONFIG_FILE"
+ln -sf "$CONFIG_WRAP_FILE" "$CONFIG_INSTALL_FILE"
