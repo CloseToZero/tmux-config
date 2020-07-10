@@ -1,3 +1,3 @@
-[submodule "plugins/tpm"]
-	path = plugins/tpm
+[submodule "plugin-manager/tpm"]
+	path = plugin-manager/tpm
 	url = https://github.com/tmux-plugins/tpm.git
