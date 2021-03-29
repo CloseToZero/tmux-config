@@ -12,6 +12,10 @@ source-file "$CONFIG_FILE"
 EOF
 
 if [ -f "$CONFIG_INSTALL_FILE" ]; then
+  if [ -f "$CONFIG_BACKUP_FILE" ]; then
+    echo "Try to backup $CONFIG_INSTALL_FILE as $CONFIG_BACKUP_FILE, but $CONFIG_BACKUP_FILE already exists"
+    exit 1
+  fi
   cp "$CONFIG_INSTALL_FILE" "$CONFIG_BACKUP_FILE"
 fi
 
